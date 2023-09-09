@@ -1,0 +1,27 @@
+# importing the modules
+import PyPDF2
+import pyttsx3
+  
+# path of the PDF file
+path = open("01 Harry Potter and The Philosopher's Stone.pdf", 'rb')
+  
+# creating a PdfFileReader object
+pdfReader = PyPDF2.PdfReader(path)
+  
+# the page with which you want to start
+# this will read the 25th page.
+from_page = pdfReader.pages[1] 
+  
+# extracting the text from the PDF
+text = from_page.extract_text()
+clean_text = text.strip().replace('\n', ' ')
+  
+# reading the text
+engine = pyttsx3.init()
+voices = engine.getProperty('voices')
+engine.setProperty('voice', voices[90].id)
+engine.say(clean_text)
+#engine.save_to_file(clean_text, 'harry potter 1.wv')
+engine.runAndWait()
+
+engine.stop()
